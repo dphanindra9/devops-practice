@@ -1,0 +1,24 @@
+name: Build Docker Image
+
+# 1. When should this run?
+on:
+  push:
+    branches:
+      - main
+
+# 2. What should it do?
+jobs:
+  build-and-test:
+    # Spin up a temporary Ubuntu server
+    runs-on: ubuntu-latest
+
+    # The step-by-step instructions
+    steps:
+      - name: Download my code from the repository
+        uses: actions/checkout@v4
+
+      - name: Build the Docker Image
+        run: docker build -t my-script .
+        
+      - name: Prove it works by running the container
+        run: docker run my-script
